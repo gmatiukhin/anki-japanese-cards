@@ -91,11 +91,6 @@ var y_small = ["ゃ", "ゅ", "ょ", "ャ", "ュ", "ョ"];
 var xtu = ["っ", "ッ"];
 var katakanaLong = "ー";
 
-var front = document.getElementById("front");
-
-var morae = [];
-var was_xtu = false;
-
 function createMoraElement(sym) {
 	let cont = document.createElement("div");
 	cont.classList.add("container");
@@ -125,23 +120,28 @@ function createMoraElement(sym) {
 	return cont
 }
 
-var kana = front.innerText;
-for (let i = 0; i < kana.length; i++) {
-	var sym = kana[i];
+function init() {
+  var morae = [];
+  var was_xtu = false;
+  var front = document.getElementById("front");
+  var kana = front.innerText;
+  for (let i = 0; i < kana.length; i++) {
+    var sym = kana[i];
 
-	if (y_small.includes(sym) || sym == katakanaLong) {
-		let mora = kana[i - 1] + sym;
-		morae[morae.length - 1] = mora;
-	} else if (xtu.includes(sym)) {
-		was_xtu = true;
-	} else if (was_xtu) {
-		let mora = kana[i - 1] + sym;
-		morae.push(mora);
-		was_xtu = false;
-	} else {
-		morae.push(sym);
-	}
+    if (y_small.includes(sym) || sym == katakanaLong) {
+      let mora = kana[i - 1] + sym;
+      morae[morae.length - 1] = mora;
+    } else if (xtu.includes(sym)) {
+      was_xtu = true;
+    } else if (was_xtu) {
+      let mora = kana[i - 1] + sym;
+      morae.push(mora);
+      was_xtu = false;
+    } else {
+      morae.push(sym);
+    }
+  }
+
+  front.innerText = ""
+  morae.forEach((x) => font.appendChild(createMoraElement(x)));
 }
-
-front.innerText = ""
-morae.forEach((x) => font.appendChild(createMoraElement(x)));
