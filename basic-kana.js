@@ -91,7 +91,7 @@ var y_small = ["ゃ", "ゅ", "ょ", "ャ", "ュ", "ョ"];
 var xtu = ["っ", "ッ"];
 var katakanaLong = "ー";
 
-var output = document.getElementById("front");
+var front = document.getElementById("front");
 
 var morae = [];
 var was_xtu = false;
@@ -125,7 +125,7 @@ function createMoraElement(sym) {
 	return cont
 }
 
-var kana = "{{Front}}".split('')
+var kana = front.innerText;
 for (let i = 0; i < kana.length; i++) {
 	var sym = kana[i];
 
@@ -143,4 +143,5 @@ for (let i = 0; i < kana.length; i++) {
 	}
 }
 
-morae.forEach((x) => output.appendChild(createMoraElement(x)));
+front.innerText = ""
+morae.forEach((x) => font.appendChild(createMoraElement(x)));
